@@ -2,7 +2,7 @@
 
 -- Division with remainder, integer binary logarithm, integer square root, integer power, greatest common divisor.
 
-let Prelude = https://prelude.dhall-lang.org/v20.2.0/package.dhall
+let Prelude = https://prelude.dhall-lang.org/v23.0.0/package.dhall --https://raw.githubusercontent.com/dhall-lang/dhall-lang/v23.0.0/Prelude/package.dhall
 
 -- Fold while an updater function returns a non-empty option, up to a given number of iterations.
 let foldWhile: ∀(n: Natural) → ∀(res : Type) → ∀(succ : res → Optional res) → ∀(zero : res) → res =
@@ -69,39 +69,6 @@ let test = assert : rem 3 3 === Some 0
 let test = assert : rem 3 0 === None Natural
 let test = assert : rem 0 0 === None Natural
 
-
--- (bitLength n) is how many times we need to divide n by 2 to obtain 0. This is 1 + log2 n.
-let bitLength: Natural -> Natural = \(x: Natural) ->
-  let Acc: Type = {current: Natural, count: Natural}
-  let updateAcc: Acc -> Optional Acc = \(acc: Acc) ->
-    if Prelude.Natural.isZero acc.current then None Acc else
-    let divided = div acc.current 2
-    let result: Acc = merge { Some = \(p: Natural) -> acc // {current = p, count = acc.count + 1}, None = acc // {count = 999} } divided
-    in
-    Some result
-
-  let initAcc: Acc = {current = x, count = 0}
-    let test = assert : updateAcc { current = 0, count = 1 } === None Acc
-    let test = assert : updateAcc { current = 10, count = 2 } === Some { current = 5, count = 3 }
-    let test = assert : updateAcc { current = 1, count = 0 } === Some { current = 0, count = 1 }
-  let result = foldWhile (x + 1) Acc updateAcc initAcc
-  in
-  --if Prelude.Natural.isZero x then None Natural else Some
-  result.count
-
-let test = assert : bitLength 0 === 0
-let test = assert : bitLength 1 === 1
-let test = assert : bitLength 2 === 2
-let test = assert : bitLength 3 === 2
-let test = assert : bitLength 4 === 3
-let test = assert : bitLength 5 === 3
-let test = assert : bitLength 6 === 3
-let test = assert : bitLength 7 === 3
-let test = assert : bitLength 8 === 4
-let test = assert : bitLength 9 === 4
-let test = assert : bitLength 1023 === 10
-let test = assert : bitLength 1024 === 11
-let test = assert : bitLength 1025 === 11
 
 -- (gcd m n) is the greatest common divisor of m and n. If either of m and n are zero, the result is also zero.
 let gcd: Natural -> Natural -> Natural = \(x: Natural) -> \(y: Natural) ->
