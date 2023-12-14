@@ -34,4 +34,24 @@ let test = assert : divyx 0 2 === 2
 
 let test = assert : divyx 0 0 === 0
 
-in  divyx
+let Void
+    : Type
+    = forall (x : Type) -> x
+
+let NonzeroNatural
+    : Natural -> Type
+    = \(y : Natural) -> if Natural/isZero y then Void else Natural
+
+let test = 1 : NonzeroNatural 1
+
+let divide
+    : Natural -> forall (y : Natural) -> NonzeroNatural y -> Natural
+    = \(x : Natural) -> \(y : Natural) -> \(_ : NonzeroNatural y) -> divyx y x
+
+let test = assert : divide 40 20 0 === 2
+
+let test = assert : divide 40 13 0 === 3
+
+let test = assert : divide 40 14 0 === 2
+
+in  divide
