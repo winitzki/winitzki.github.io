@@ -37,12 +37,18 @@ let test = assert : divyx 0 0 === 0
 let Void
     : Type
     = forall (x : Type) -> x
-let Unit: Type = forall (x : Type) -> x -> x
-let unit : Unit = \(x: Type) -> \(y: x) -> y
+
+let Unit
+    : Type
+    = forall (x : Type) -> x -> x
+
+let unit
+    : Unit
+    = \(x : Type) -> \(y : x) -> y
 
 let NonzeroNatural
     : Natural -> Type
-    = \(y : Natural) -> if Natural/isZero y then Void else  {}
+    = \(y : Natural) -> if Natural/isZero y then Void else {}
 
 let test = {=} : NonzeroNatural 1
 
@@ -56,16 +62,18 @@ let test = assert : divide 40 13 {=} === 3
 
 let test = assert : divide 40 14 {=} === 2
 
+let NN
+    : Natural -> Type
+    = \(y : Natural) -> Natural/isZero y === False
 
--- Another try. Here there is more boilerplate.
-
-let NN  : Natural -> Type= \(y : Natural) ->  Natural/isZero y === False
---let test = assert : NN 0 -- This fails.
 let test = assert : NN 1
 
-let dividex : forall (y: Natural) -> forall(_: NN y) -> Natural -> Natural=
- \(y: Natural) -> \(assrt: NN y) -> \(x:   Natural ) -> divyx y x
+let dividex
+    : forall (y : Natural) -> NN y -> Natural -> Natural
+    = \(y : Natural) -> \(assrt : NN y) -> \(x : Natural) -> divyx y x
 
-let test = assert : dividex 1 (assert: NN 1) 3 === 3
-let test = assert : dividex 3 (assert: NN 1) 1 === 0
+let test = assert : dividex 1 (assert : NN 1) 3 === 3
+
+let test = assert : dividex 3 (assert : NN 1) 1 === 0
+
 in  divide
