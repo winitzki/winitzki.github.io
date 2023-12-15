@@ -1,5 +1,5 @@
--- divyx y x is  floor(x / y) and if y == 0 then it's anything
--- div y x Natural is floor(x / y) provided that y != 0 and y is a literal
+-- `divyx y x` is  floor(x / y) but `divyx 0 x = x`.
+-- `divide x y {=}` is floor(x / y) provided that y != 0 and y is a Natural literal.
 -- let lessThanEqual = https://prelude.dhall-lang.org/v23.0.0/Natural/lessThanEqual sha256:1a5caa2b80a42b9f58fff58e47ac0d9a9946d0b2d36c54034b8ddfe3cb0f3c99
 let lessThan =
       https://prelude.dhall-lang.org/v23.0.0/Natural/lessThan

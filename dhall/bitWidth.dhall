@@ -1,5 +1,5 @@
 -- (bitWidth n) is how many times we need to divide n by 2 to obtain 0. This is floor(1 + log2 n) except for n = 0.
-let lessThan  =
+let lessThan =
       https://prelude.dhall-lang.org/v23.0.0/Natural/lessThan
         sha256:3381b66749290769badf8855d8a3f4af62e8de52d1364d838a9d1e20c94fa70c
 
@@ -21,7 +21,24 @@ let bitWidth
             : Acc
             = { current = 1, count = 0 }
 
-        let result = Natural/fold (x + 1) Acc updateAcc initAcc
+        let upperBound =
+              if    lessThan x 1000000000000000000000000000000
+              then  101
+              else  if lessThan
+                         x
+                         1000000000000000000000000000000000000000000000000000000000000
+              then  201
+              else  if lessThan
+                         x
+                         1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+              then  401
+              else  if lessThan
+                         x
+                         1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+              then  801
+              else  x + 1
+
+        let result = Natural/fold upperBound Acc updateAcc initAcc
 
         in  result.count
 
