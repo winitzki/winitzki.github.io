@@ -5,93 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Float Module - Dhall Tutorial</title>
     <style>
-        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
         h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
         h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #7f8c8d; margin-top: 20px; }
         .file-list { list-style: none; padding: 0; }
         .file-item { background: #f8f9fa; margin: 10px 0; padding: 15px; border-radius: 5px; border-left: 4px solid #3498db; }
         .file-name { font-family: monospace; font-weight: bold; color: #e74c3c; font-size: 1.1em; }
+        .file-name a { color: #e74c3c; text-decoration: none; }
+        .file-name a:hover { text-decoration: underline; }
         .file-desc { margin-top: 5px; color: #555; }
+        .function { margin: 8px 0; padding: 8px; background: #fff; border-radius: 3px; }
+        .func-name { font-family: monospace; font-weight: bold; color: #2980b9; }
+        .func-type { font-family: monospace; color: #27ae60; font-size: 0.9em; }
         code { background: #ecf0f1; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; }
     </style>
 </head>
 <body>
     <h1>Float Module - Dhall Tutorial</h1>
     <p>This module implements arbitrary-precision floating-point arithmetic in Dhall. All operations support configurable precision.</p>
 
-    <h2>Core Types and Functions</h2>
-    <ul class="file-list">
-        <li class="file-item">
-            <div class="file-name">Type.dhall</div>
-            <div class="file-desc">Defines the core <code>Float</code> type (a record with mantissa, exponent, sign, and metadata), along with utility functions like <code>Float/create</code>, <code>Float/normalize</code>, <code>Float/negate</code>, <code>Float/abs</code>, <code>Float/pad</code>, <code>Float/ofNatural</code>, and helpers for arithmetic operations.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">numerics.dhall</div>
-            <div class="file-desc">Helper functions for Natural numbers: <code>log</code> (base-b logarithm), <code>power</code>, <code>divmod</code> (division with remainder), <code>egyptian_div_mod</code> (division by repeated doubling), and <code>Integer/mapSign</code>.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">reduce_growth.dhall</div>
-            <div class="file-desc">Performance optimization utilities that reduce the size of normal forms. Contains <code>reduce_growth</code>, <code>reduce_growth_noop</code>, and predicates for Natural, Integer, Bool, and List types.</div>
-        </li>
-    </ul>
+    <h2><a href="Type.dhall">Type.dhall</a></h2>
+    <p>Core types and functions for floating-point representation.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float</span> : <span class="func-type">FloatBare ⩓ FloatExtraData</span></div>
+        <div class="file-desc">The Float type, combining mantissa/exponent/sign with extra metadata (leadDigit, topPower, remaining).</div>
+        
+        <div class="function"><span class="func-name">FloatBare</span> : <span class="func-type">Type</span></div>
+        <div class="file-desc">Record type: <code>{ mantissa : Natural, mantissaPositive : Bool, exponent : Integer }</code></div>
+        
+        <div class="function"><span class="func-name">Float/create</span> : <span class="func-type">Integer → Integer → Float</span></div>
+        <div class="file-desc">Create a Float from mantissa Integer and exponent Integer.</div>
+        
+        <div class="function"><span class="func-name">Float/zero</span> : <span class="func-type">Float</span></div>
+        <div class="file-desc">The zero value.</div>
+        
+        <div class="function"><span class="func-name">Float/normalize</span> : <span class="func-type">Float → Float</span></div>
+        <div class="file-desc">Normalize a Float by adjusting mantissa and exponent.</div>
+        
+        <div class="function"><span class="func-name">Float/ofNatural</span> : <span class="func-type">Natural → Float</span></div>
+        <div class="file-desc">Convert a Natural number to Float.</div>
+        
+        <div class="function"><span class="func-name">Float/pad</span> : <span class="func-type">Float → Natural → Float</span></div>
+        <div class="file-desc">Pad a Float with extra precision digits.</div>
+        
+        <div class="function"><span class="func-name">Float/negate</span> : <span class="func-type">Float → Float</span></div>
+        <div class="file-desc">Negate a Float.</div>
+        
+        <div class="function"><span class="func-name">Float/abs</span> : <span class="func-type">Float → Float</span></div>
+        <div class="file-desc">Absolute value of a Float.</div>
+        
+        <div class="function"><span class="func-name">Float/isPositive</span> : <span class="func-type">Float → Bool</span></div>
+        <div class="file-desc">Check if Float is positive.</div>
+        
+        <div class="function"><span class="func-name">Float/isZero</span> : <span class="func-type">Float → Bool</span></div>
+        <div class="file-desc">Check if Float is zero.</div>
+        
+        <div class="function"><span class="func-name">divmod</span> : <span class="func-type">Natural → Natural → { div : Natural, rem : Natural }</span></div>
+        <div class="file-desc">Division with remainder for Natural numbers.</div>
+        
+        <div class="function"><span class="func-name">log</span> : <span class="func-type">Natural → Natural → Natural</span></div>
+        <div class="file-desc">Base-b logarithm (floor) of n.</div>
+        
+        <div class="function"><span class="func-name">power</span> : <span class="func-type">Natural → Natural → Natural</span></div>
+        <div class="file-desc">Exponentiation for Natural numbers.</div>
+    </div>
 
-    <h2>Arithmetic Operations</h2>
-    <ul class="file-list">
-        <li class="file-item">
-            <div class="file-name">add.dhall</div>
-            <div class="file-desc">Implements <code>Float/add</code> for adding two floats with configurable precision. Handles signed addition with underflow detection and proper rounding.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">subtract.dhall</div>
-            <div class="file-desc">Implements <code>Float/subtract</code> using <code>Float/negate</code> and <code>Float/add</code>.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">multiply.dhall</div>
-            <div class="file-desc">Implements <code>Float/multiply</code> for multiplying two floats. Combines mantissas and adds exponents, with configurable precision.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">divide.dhall</div>
-            <div class="file-desc">Implements <code>Float/divide</code> for dividing one float by another. Uses padding and division with remainder for precision control.</div>
-        </li>
-    </ul>
+    <h2><a href="numerics.dhall">numerics.dhall</a></h2>
+    <p>Helper functions for Natural number arithmetic.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">log</span> : <span class="func-type">Natural → Natural → Natural</span></div>
+        <div class="file-desc">Base-b logarithm (floor) of n.</div>
+        
+        <div class="function"><span class="func-name">power</span> : <span class="func-type">Natural → Natural → Natural</span></div>
+        <div class="file-desc">x^y for Natural numbers.</div>
+        
+        <div class="function"><span class="func-name">Result</span> : <span class="func-type">Type</span></div>
+        <div class="file-desc">Record type: <code>{ div : Natural, rem : Natural }</code></div>
+        
+        <div class="function"><span class="func-name">divmod</span> : <span class="func-type">Natural → Natural → Result</span></div>
+        <div class="file-desc">Division with remainder (simple loop).</div>
+        
+        <div class="function"><span class="func-name">divrem</span> : <span class="func-type">Natural → Natural → Result</span></div>
+        <div class="file-desc">Egyptian division: a / b using powers of 2.</div>
+        
+        <div class="function"><span class="func-name">powersOf2Until</span> : <span class="func-type">Natural → Natural → List Natural</span></div>
+        <div class="file-desc">Generate powers of 2 until condition.</div>
+        
+        <div class="function"><span class="func-name">Integer/mapSign</span> : <span class="func-type">(Natural → Natural) → Integer → Integer</span></div>
+        <div class="file-desc">Apply a Natural function to Integer, preserving sign.</div>
+    </div>
 
-    <h2>Advanced Operations</h2>
-    <ul class="file-list">
-        <li class="file-item">
-            <div class="file-name">compare.dhall</div>
-            <div class="file-desc">Implements comparison operations: <code>Float/compare</code> (returns <code>Compared</code>: Equal/Greater/Less), <code>Natural/compare</code>, <code>Integer/compare</code>, and <code>computeTorsorForBothNonzero</code> for comparing magnitudes of floats.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">rounding.dhall</div>
-            <div class="file-desc">Implements <code>Float/round</code> (round to nearest with ties to even) and <code>Float/truncate</code> (round toward zero) for precision control.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">show.dhall</div>
-            <div class="file-desc">Implements <code>Float/show</code> for converting floats to human-readable text. Supports scientific notation for very large/small numbers.</div>
-        </li>
-        <li class="file-item">
-            <div class="file-name">sqrt.dhall</div>
-            <div class="file-desc">Implements <code>Float/sqrt</code> using Newton's method with configurable precision and automatic initial approximation.</div>
-        </li>
-    </ul>
+    <h2><a href="reduce_growth.dhall">reduce_growth.dhall</a></h2>
+    <p>Performance optimization to reduce normal form expansion.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">reduce_growth</span> : <span class="func-type">∀(T : Type) → (T → Bool) → ∀(R : Type) → R → (T → R) → T → R</span></div>
+        <div class="file-desc">Prevent expansion under lambdas for better performance.</div>
+        
+        <div class="function"><span class="func-name">reduce_growth_noop</span> : <span class="func-type">∀(T : Type) → (T → Bool) → ∀(R : Type) → R → (T → R) → T → R</span></div>
+        <div class="file-desc">Identity version for comparison.</div>
+        
+        <div class="function"><span class="func-name">predicate_Natural</span> : <span class="func-type">Natural → Bool</span></div>
+        <div class="file-desc">Predicate for Natural numbers.</div>
+        
+        <div class="function"><span class="func-name">predicate_Integer</span> : <span class="func-type">Integer → Bool</span></div>
+        <div class="file-desc">Predicate for Integer numbers.</div>
+        
+        <div class="function"><span class="func-name">predicate_Bool</span> : <span class="func-type">Bool → Bool</span></div>
+        <div class="file-desc">Predicate for Bool values.</div>
+    </div>
 
-    <h2>Examples</h2>
-    <ul class="file-list">
-        <li class="file-item">
-            <div class="file-name">compute_pi_machin.dhall</div>
-            <div class="file-desc">Computes π using Machin's formula: π = 16·arctan(1/5) - 4·arctan(1/239). Run with <code>PRECISION=20 dhall --file ./compute_pi_machin.dhall</code>.</div>
-        </li>
-    </ul>
+    <h2><a href="add.dhall">add.dhall</a></h2>
+    <p>Addition of Floats with configurable precision.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/add</span> : <span class="func-type">Float → Float → Natural → Float</span></div>
+        <div class="file-desc">Add two Floats with given precision (number of significant digits).</div>
+    </div>
+
+    <h2><a href="subtract.dhall">subtract.dhall</a></h2>
+    <p>Subtraction of Floats.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/subtract</span> : <span class="func-type">Float → Float → Natural → Float</span></div>
+        <div class="file-desc">Subtract b from a: a - b, with given precision.</div>
+    </div>
+
+    <h2><a href="multiply.dhall">multiply.dhall</a></h2>
+    <p>Multiplication of Floats.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/multiply</span> : <span class="func-type">Float → Float → Natural → Float</span></div>
+        <div class="file-desc">Multiply two Floats with given precision.</div>
+    </div>
+
+    <h2><a href="divide.dhall">divide.dhall</a></h2>
+    <p>Division of Floats.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/divide</span> : <span class="func-type">Float → Float → Natural → Float</span></div>
+        <div class="file-desc">Divide a by b with given precision.</div>
+    </div>
+
+    <h2><a href="compare.dhall">compare.dhall</a></h2>
+    <p>Comparison operations for Floats.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/compare</span> : <span class="func-type">Float → Float → Compared</span></div>
+        <div class="file-desc">Compare two Floats, returning <code>< Equal | Greater | Less ></code>.</div>
+        
+        <div class="function"><span class="func-name">Compared</span> : <span class="func-type">Type</span></div>
+        <div class="file-desc">Enum type: <code>< Equal | Greater | Less ></code></div>
+        
+        <div class="function"><span class="func-name">Compared/reverse</span> : <span class="func-type">Compared → Compared</span></div>
+        <div class="file-desc">Reverse comparison result (Greater → Less, etc.).</div>
+        
+        <div class="function"><span class="func-name">Natural/compare</span> : <span class="func-type">Natural → Natural → Compared</span></div>
+        <div class="file-desc">Compare Natural numbers.</div>
+        
+        <div class="function"><span class="func-name">Integer/compare</span> : <span class="func-type">Integer → Integer → Compared</span></div>
+        <div class="file-desc">Compare Integer numbers.</div>
+        
+        <div class="function"><span class="func-name">computeTorsorForBothNonzero</span> : <span class="func-type">Pair Float Float → TorsorType</span></div>
+        <div class="file-desc">Compute magnitude difference for two non-zero Floats.</div>
+    </div>
+
+    <h2><a href="rounding.dhall">rounding.dhall</a></h2>
+    <p>Rounding operations for precision control.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/round</span> : <span class="func-type">Float → Natural → Float</span></div>
+        <div class="file-desc">Round to nearest with ties to even, keeping prec significant digits.</div>
+        
+        <div class="function"><span class="func-name">Float/truncate</span> : <span class="func-type">Float → Natural → Float</span></div>
+        <div class="file-desc">Truncate (round toward zero), keeping prec significant digits.</div>
+    </div>
+
+    <h2><a href="show.dhall">show.dhall</a></h2>
+    <p>Convert Floats to human-readable text.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/show</span> : <span class="func-type">Float → Text</span></div>
+        <div class="file-desc">Convert Float to Text representation (auto-scientific notation for large/small numbers).</div>
+    </div>
+
+    <h2><a href="sqrt.dhall">sqrt.dhall</a></h2>
+    <p>Square root using Newton's method.</p>
+    <div class="file-item">
+        <div class="function"><span class="func-name">Float/sqrt</span> : <span class="func-type">Float → Natural → Float</span></div>
+        <div class="file-desc">Compute square root with given precision using Newton's method.</div>
+    </div>
+
+    <h2><a href="compute_pi_machin.dhall">compute_pi_machin.dhall</a></h2>
+    <p>Example: compute π using Machin's formula.</p>
+    <div class="file-item">
+        <p>Computes π = 16·arctan(1/5) - 4·arctan(1/239)</p>
+        <pre>dhall --file ./compute_pi_machin.dhall</pre>
+        <p>or with precision:</p>
+        <pre>PRECISION=20 dhall --file ./compute_pi_machin.dhall</pre>
+    </div>
 
     <h2>Test Files</h2>
     <ul class="file-list">
-        <li class="file-item"><div class="file-name">test_add.dhall</div><div class="file-desc">Tests for Float/add</div></li>
-        <li class="file-item"><div class="file-name">test_compare.dhall</div><div class="file-desc">Tests for Float/compare</div></li>
-        <li class="file-item"><div class="file-name">test_divide.dhall</div><div class="file-desc">Tests for Float/divide</div></li>
-        <li class="file-item"><div class="file-name">test_numerics.dhall</div><div class="file-desc">Tests for numerics functions</div></li>
-        <li class="file-item"><div class="file-name">test_reduce_growth.dhall</div><div class="file-desc">Tests for reduce_growth utilities</div></li>
-        <li class="file-item"><div class="file-name">test_show.dhall</div><div class="file-desc">Tests for Float/show</div></li>
-        <li class="file-item"><div class="file-name">test_sqrt.dhall</div><div class="file-desc">Tests for Float/sqrt</div></li>
+        <li class="file-item"><a href="test_add.dhall">test_add.dhall</a> - Tests for Float/add</li>
+        <li class="file-item"><a href="test_compare.dhall">test_compare.dhall</a> - Tests for Float/compare</li>
+        <li class="file-item"><a href="test_divide.dhall">test_divide.dhall</a> - Tests for Float/divide</li>
+        <li class="file-item"><a href="test_numerics.dhall">test_numerics.dhall</a> - Tests for numerics functions</li>
+        <li class="file-item"><a href="test_reduce_growth.dhall">test_reduce_growth.dhall</a> - Tests for reduce_growth</li>
+        <li class="file-item"><a href="test_show.dhall">test_show.dhall</a> - Tests for Float/show</li>
+        <li class="file-item"><a href="test_sqrt.dhall">test_sqrt.dhall</a> - Tests for Float/sqrt</li>
     </ul>
 </body>
 </html>
