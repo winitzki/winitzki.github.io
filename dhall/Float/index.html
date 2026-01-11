@@ -191,12 +191,10 @@
     </div>
 
     <h2><a href="compute_pi_machin.dhall">compute_pi_machin.dhall</a></h2>
-    <p>Example: compute π using Machin's formula.</p>
+    <p>Example: compute π using Machin's formula: π = 16·arctan(1/5) - 4·arctan(1/239).</p>
     <div class="file-item">
-        <p>Computes π = 16·arctan(1/5) - 4·arctan(1/239)</p>
-        <pre>dhall --file ./compute_pi_machin.dhall</pre>
-        <p>or with precision:</p>
-        <pre>PRECISION=20 dhall --file ./compute_pi_machin.dhall</pre>
+        <p>Computes π with given decimal precision.</p>
+        <pre>PRECISION=100 dhall --file ./compute_pi_machin.dhall</pre>
     </div>
 
     <h2>Test Files</h2>
