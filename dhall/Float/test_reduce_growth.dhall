@@ -1,6 +1,8 @@
-let stop = ./reduce_growth.dhall
+let stop =
+      ./reduce_growth.dhall
+        sha256:9129f3a6766ab3cc8435482c1aa3cb84ef1a6cee80636121e2d1b377b0551ecc
 
-let n = env:N
+let n = 10
 
 let h = λ(x : Natural) → λ(b : Bool) → if b then x else x + 1
 
