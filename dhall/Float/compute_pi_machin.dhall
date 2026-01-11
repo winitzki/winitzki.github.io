@@ -108,7 +108,7 @@ let arctan_1_n
               (Natural/fold number_of_terms Accum update init).current_result
               prec
 
-let prec_given = 100
+let prec_given = env:PRECISION
 
 let prec = prec_given + Natural/log 2 prec_given
 
