@@ -10,7 +10,8 @@
   --wrong-flash: #ff8a8a;
   --black-key: #222021;
   --black-active: #f29e38;
-  --white-w: clamp(24px, calc((100vw - 36px) / 14), 64px);
+  --ui-scale: 1.1;
+  --white-w: calc(clamp(24px, calc((100vw - 36px) / 14), 64px) * var(--ui-scale));
   --white-h: calc(var(--white-w) * 3.93);
   --black-w: calc(var(--white-w) * 0.61);
   --black-h: calc(var(--white-h) * 0.62);
@@ -73,8 +74,8 @@ body {
 }
 
 .volume-icon {
-  width: 16px;
-  height: 16px;
+  width: calc(16px * var(--ui-scale));
+  height: calc(16px * var(--ui-scale));
   display: block;
 }
 
