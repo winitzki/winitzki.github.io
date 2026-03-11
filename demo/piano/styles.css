@@ -8,6 +8,7 @@
   --playback-flash: #9ed9ff;
   --correct-flash: #7ee08f;
   --wrong-flash: #ff8a8a;
+  --expert-flash: #ffe16a;
   --black-key: #222021;
   --black-active: #f29e38;
   --ui-scale: 1.1;
@@ -254,6 +255,10 @@ body {
   background: linear-gradient(#ffdada, var(--wrong-flash));
 }
 
+.key.white.all-keys-flash {
+  animation: key-win-flash 0.22s ease-in-out 0s 3;
+}
+
 .key.black {
   position: absolute;
   top: 0;
@@ -277,6 +282,22 @@ body {
 
 .key.black.active.wrong {
   background: linear-gradient(#ff9e9e, #e05a5a);
+}
+
+.key.black.all-keys-flash {
+  animation: key-win-flash-black 0.22s ease-in-out 0s 3;
+}
+
+@keyframes key-win-flash {
+  0%,
+  100% { background: var(--white-key); }
+  50% { background: linear-gradient(#fff4b4, var(--expert-flash)); }
+}
+
+@keyframes key-win-flash-black {
+  0%,
+  100% { background: linear-gradient(#393536, var(--black-key)); }
+  50% { background: linear-gradient(#ffe48f, #e6bc39); }
 }
 
 .slot-1 { left: calc(var(--white-w) * 1 - (var(--black-w) / 2)); }
