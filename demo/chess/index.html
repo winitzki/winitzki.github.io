@@ -19,6 +19,7 @@
             -ms-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -26,11 +27,33 @@
     <div id="app"></div>
     <script src="app.js"></script>
     <script>
+        var appNode = document.getElementById('app');
+
         Elm.Chess.Main.init({
-            node: document.getElementById('app'),
+            node: appNode,
             flags: {
                 viewportWidth: window.innerWidth,
                 viewportHeight: window.innerHeight
+            }
+        });
+
+        ["selectstart", "dragstart", "dblclick", "contextmenu"].forEach(function (eventName) {
+            appNode.addEventListener(eventName, function (event) {
+                event.preventDefault();
+            });
+        });
+
+        document.addEventListener("selectionchange", function () {
+            var selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) {
+                return;
+            }
+
+            var anchorInside = selection.anchorNode && appNode.contains(selection.anchorNode);
+            var focusInside = selection.focusNode && appNode.contains(selection.focusNode);
+
+            if (anchorInside || focusInside) {
+                selection.removeAllRanges();
             }
         });
     </script>

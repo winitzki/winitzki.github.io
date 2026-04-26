@@ -20,6 +20,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -27,8 +28,16 @@
     <div id="app"></div>
     <script src="app.js"></script>
     <script>
+        const appNode = document.getElementById("app");
+
+        ["selectstart", "dragstart", "dblclick"].forEach((eventName) => {
+            appNode.addEventListener(eventName, (event) => {
+                event.preventDefault();
+            });
+        });
+
         Elm.Checkers.Main.init({
-            node: document.getElementById("app")
+            node: appNode
         });
     </script>
 </body>
