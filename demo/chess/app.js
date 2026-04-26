@@ -7474,7 +7474,7 @@ var $author$project$Chess$Main$viewSquare = F6(
 		var _v0 = boardSquare;
 		var boardFile = _v0.a;
 		var boardRank = _v0.b;
-		var baseColor = (!A2($elm$core$Basics$modBy, 2, boardFile + boardRank)) ? '#f0d9b5' : '#b58863';
+		var baseColor = (!A2($elm$core$Basics$modBy, 2, boardFile + boardRank)) ? '#b58863' : '#f0d9b5';
 		var colorWithState = _Utils_eq(
 			model.I,
 			$elm$core$Maybe$Just(boardSquare)) ? '#88cc66' : (_Utils_eq(
