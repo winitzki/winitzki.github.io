@@ -5153,7 +5153,7 @@ var $elm$core$Task$perform = F2(
 			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Checkers$Main$En = 0;
+var $author$project$Checkers$Main$De = 1;
 var $author$project$Checkers$Main$White = 0;
 var $author$project$Checkers$Main$WhiteBottom = 0;
 var $author$project$Checkers$Main$Black = 1;
@@ -5319,7 +5319,7 @@ var $elm$core$Basics$modBy = _Basics_modBy;
 var $author$project$Checkers$Main$isDarkSquare = function (_v0) {
 	var file = _v0.a;
 	var rank = _v0.b;
-	return A2($elm$core$Basics$modBy, 2, file + rank) === 1;
+	return !A2($elm$core$Basics$modBy, 2, file + rank);
 };
 var $author$project$Checkers$Main$initialPiecesFor = function (player) {
 	var ranks = (!player) ? _List_fromArray(
@@ -5345,7 +5345,7 @@ var $author$project$Checkers$Main$initialBoard = $elm$core$Dict$fromList(
 	_Utils_ap(
 		$author$project$Checkers$Main$initialPiecesFor(0),
 		$author$project$Checkers$Main$initialPiecesFor(1)));
-var $author$project$Checkers$Main$initialModel = {t: $author$project$Checkers$Main$initialBoard, Y: $elm$core$Maybe$Nothing, E: $elm$core$Maybe$Nothing, G: 0, al: 0, ad: $elm$core$Maybe$Nothing, y: 0};
+var $author$project$Checkers$Main$initialModel = {t: $author$project$Checkers$Main$initialBoard, Y: $elm$core$Maybe$Nothing, E: $elm$core$Maybe$Nothing, G: 1, al: 0, ad: $elm$core$Maybe$Nothing, y: 0};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -6523,7 +6523,7 @@ var $author$project$Checkers$Main$viewBoard = F2(
 				]),
 			squares);
 	});
-var $author$project$Checkers$Main$De = 1;
+var $author$project$Checkers$Main$En = 0;
 var $author$project$Checkers$Main$Fr = 2;
 var $author$project$Checkers$Main$LabelReset = {$: 0};
 var $author$project$Checkers$Main$LabelSwap = {$: 1};

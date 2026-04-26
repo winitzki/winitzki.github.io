@@ -5155,7 +5155,7 @@ var $elm$core$Task$perform = F2(
 	});
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$Chess$Main$En = 0;
+var $author$project$Chess$Main$De = 1;
 var $author$project$Chess$Main$WhiteBottom = 0;
 var $author$project$Chess$Main$White = 0;
 var $author$project$Chess$Main$Black = 1;
@@ -5357,7 +5357,7 @@ var $author$project$Chess$Main$initialPosition = {
 };
 var $author$project$Chess$Main$initialModel = F2(
 	function (viewportWidth, viewportHeight) {
-		return {K: $elm$core$Maybe$Nothing, aA: _List_Nil, q: 0, aO: $elm$core$Maybe$Nothing, V: 0, j: $author$project$Chess$Main$initialPosition, I: $elm$core$Maybe$Nothing, ag: viewportHeight, ah: viewportWidth};
+		return {K: $elm$core$Maybe$Nothing, aA: _List_Nil, q: 1, aO: $elm$core$Maybe$Nothing, V: 0, j: $author$project$Chess$Main$initialPosition, I: $elm$core$Maybe$Nothing, ag: viewportHeight, ah: viewportWidth};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -7557,7 +7557,7 @@ var $author$project$Chess$Main$viewBoard = F3(
 							A4($author$project$Chess$Main$viewRankLabels, model, rim, cellSize, boardSize))))
 				]));
 	});
-var $author$project$Chess$Main$De = 1;
+var $author$project$Chess$Main$En = 0;
 var $author$project$Chess$Main$Fr = 2;
 var $author$project$Chess$Main$LabelReset = {$: 1};
 var $author$project$Chess$Main$LabelSwap = {$: 0};
