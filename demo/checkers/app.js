@@ -6210,7 +6210,7 @@ var $author$project$Checkers$Main$tr = F2(
 						if (!_v0.b.a) {
 							var _v17 = _v0.a;
 							var _v18 = _v0.b.a;
-							return 'Weiss am Zug';
+							return 'Weiß am Zug';
 						} else {
 							var _v19 = _v0.a;
 							var _v20 = _v0.b.a;
@@ -6220,7 +6220,7 @@ var $author$project$Checkers$Main$tr = F2(
 						if (!_v0.b.a) {
 							var _v29 = _v0.a;
 							var _v30 = _v0.b.a;
-							return 'Weiss muss schlagen';
+							return 'Weiß muss schlagen';
 						} else {
 							var _v31 = _v0.a;
 							var _v32 = _v0.b.a;
@@ -6230,7 +6230,7 @@ var $author$project$Checkers$Main$tr = F2(
 						if (!_v0.b.a) {
 							var _v41 = _v0.a;
 							var _v42 = _v0.b.a;
-							return 'Weiss gewinnt';
+							return 'Weiß gewinnt';
 						} else {
 							var _v43 = _v0.a;
 							var _v44 = _v0.b.a;
@@ -6242,11 +6242,11 @@ var $author$project$Checkers$Main$tr = F2(
 					case 0:
 						var _v5 = _v0.a;
 						var _v6 = _v0.b;
-						return 'Reinitialiser';
+						return 'Réinitialiser';
 					case 1:
 						var _v11 = _v0.a;
 						var _v12 = _v0.b;
-						return 'Tourner echiquier';
+						return 'Tourner l\'échiquier';
 					case 2:
 						if (!_v0.b.a) {
 							var _v21 = _v0.a;
@@ -6261,11 +6261,11 @@ var $author$project$Checkers$Main$tr = F2(
 						if (!_v0.b.a) {
 							var _v33 = _v0.a;
 							var _v34 = _v0.b.a;
-							return 'Blancs doivent prendre';
+							return 'Les blancs doivent prendre';
 						} else {
 							var _v35 = _v0.a;
 							var _v36 = _v0.b.a;
-							return 'Noirs doivent prendre';
+							return 'Les noirs doivent prendre';
 						}
 					default:
 						if (!_v0.b.a) {

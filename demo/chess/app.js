@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.bv.aO === region.bP.aO)
+	if (region.bz.aP === region.bW.aP)
 	{
-		return 'on line ' + region.bv.aO;
+		return 'on line ' + region.bz.aP;
 	}
-	return 'on lines ' + region.bv.aO + ' through ' + region.bP.aO;
+	return 'on lines ' + region.bz.aP + ' through ' + region.bW.aP;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.dI,
-		impl.eW,
-		impl.ez,
+		impl.dP,
+		impl.e1,
+		impl.eG,
 		function() { return function() {} }
 	);
 });
@@ -2720,8 +2720,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		ac: func(record.ac),
-		bw: record.bw,
-		bs: record.bs
+		bB: record.bB,
+		bv: record.bv
 	}
 });
 
@@ -2990,10 +2990,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.ac;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.bw;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.bB;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.bs) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.bv) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.dI,
-		impl.eW,
-		impl.ez,
+		impl.dP,
+		impl.e1,
+		impl.eG,
 		function(sendToApp, initialModel) {
-			var view = impl.eX;
+			var view = impl.e2;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.dI,
-		impl.eW,
-		impl.ez,
+		impl.dP,
+		impl.e1,
+		impl.eG,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.bu && impl.bu(sendToApp)
-			var view = impl.eX;
+			var divertHrefToApp = impl.by && impl.by(sendToApp)
+			var view = impl.e2;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.c2);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.c9);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.eQ) && (_VirtualDom_doc.title = title = doc.eQ);
+				(title !== doc.eX) && (_VirtualDom_doc.title = title = doc.eX);
 			});
 		}
 	);
@@ -4053,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.d7;
-	var onUrlRequest = impl.d8;
+	var onUrlChange = impl.ee;
+	var onUrlRequest = impl.ef;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		bu: function(sendToApp)
+		by: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4074,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.cl === next.cl
-							&& curr.b_ === next.b_
-							&& curr.ci.a === next.ci.a
+							&& curr.cs === next.cs
+							&& curr.b5 === next.b5
+							&& curr.cp.a === next.cp.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		dI: function(flags)
+		dP: function(flags)
 		{
-			return A3(impl.dI, flags, _Browser_getUrl(), key);
+			return A3(impl.dP, flags, _Browser_getUrl(), key);
 		},
-		eX: impl.eX,
-		eW: impl.eW,
-		ez: impl.ez
+		e2: impl.e2,
+		e1: impl.e1,
+		eG: impl.eG
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { dB: 'hidden', de: 'visibilitychange' }
+		? { dI: 'hidden', dl: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { dB: 'mozHidden', de: 'mozvisibilitychange' }
+		? { dI: 'mozHidden', dl: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { dB: 'msHidden', de: 'msvisibilitychange' }
+		? { dI: 'msHidden', dl: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { dB: 'webkitHidden', de: 'webkitvisibilitychange' }
-		: { dB: 'hidden', de: 'visibilitychange' };
+		? { dI: 'webkitHidden', dl: 'webkitvisibilitychange' }
+		: { dI: 'hidden', dl: 'visibilitychange' };
 }
 
 
@@ -4247,12 +4247,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		cq: _Browser_getScene(),
-		cC: {
-			cH: _Browser_window.pageXOffset,
-			cI: _Browser_window.pageYOffset,
-			cE: _Browser_doc.documentElement.clientWidth,
-			bX: _Browser_doc.documentElement.clientHeight
+		cx: _Browser_getScene(),
+		cJ: {
+			cO: _Browser_window.pageXOffset,
+			cP: _Browser_window.pageYOffset,
+			cL: _Browser_doc.documentElement.clientWidth,
+			b2: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4262,8 +4262,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		cE: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		bX: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		cL: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		b2: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4286,15 +4286,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			cq: {
-				cE: node.scrollWidth,
-				bX: node.scrollHeight
+			cx: {
+				cL: node.scrollWidth,
+				b2: node.scrollHeight
 			},
-			cC: {
-				cH: node.scrollLeft,
-				cI: node.scrollTop,
-				cE: node.clientWidth,
-				bX: node.clientHeight
+			cJ: {
+				cO: node.scrollLeft,
+				cP: node.scrollTop,
+				cL: node.clientWidth,
+				b2: node.clientHeight
 			}
 		};
 	});
@@ -4324,18 +4324,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			cq: _Browser_getScene(),
-			cC: {
-				cH: x,
-				cI: y,
-				cE: _Browser_doc.documentElement.clientWidth,
-				bX: _Browser_doc.documentElement.clientHeight
+			cx: _Browser_getScene(),
+			cJ: {
+				cO: x,
+				cP: y,
+				cL: _Browser_doc.documentElement.clientWidth,
+				b2: _Browser_doc.documentElement.clientHeight
 			},
-			dr: {
-				cH: x + rect.left,
-				cI: y + rect.top,
-				cE: rect.width,
-				bX: rect.height
+			dy: {
+				cO: x + rect.left,
+				cP: y + rect.top,
+				cL: rect.width,
+				b2: rect.height
 			}
 		};
 	});
@@ -4776,7 +4776,7 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.l) {
+		if (!builder.m) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.p),
@@ -4784,11 +4784,11 @@ var $elm$core$Array$builderToArray = F2(
 				$elm$core$Elm$JsArray$empty,
 				builder.p);
 		} else {
-			var treeLen = builder.l * $elm$core$Array$branchFactor;
+			var treeLen = builder.m * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.q) : builder.q;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.l);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.r) : builder.r;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.m);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.p) + treeLen,
@@ -4807,7 +4807,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{q: nodeList, l: (len / $elm$core$Array$branchFactor) | 0, p: tail});
+					{r: nodeList, m: (len / $elm$core$Array$branchFactor) | 0, p: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -4875,7 +4875,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {bS: fragment, b_: host, cg: path, ci: port_, cl: protocol, cm: query};
+		return {bZ: fragment, b5: host, cn: path, cp: port_, cs: protocol, ct: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5170,28 +5170,28 @@ var $author$project$Chess$Main$backRank = F2(
 			[
 				_Utils_Tuple2(
 				_Utils_Tuple2(0, rank),
-				{b: color, e: 2}),
+				{b: color, c: 2}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(1, rank),
-				{b: color, e: 4}),
+				{b: color, c: 4}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(2, rank),
-				{b: color, e: 3}),
+				{b: color, c: 3}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(3, rank),
-				{b: color, e: 1}),
+				{b: color, c: 1}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(4, rank),
-				{b: color, e: 0}),
+				{b: color, c: 0}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(5, rank),
-				{b: color, e: 3}),
+				{b: color, c: 3}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(6, rank),
-				{b: color, e: 4}),
+				{b: color, c: 4}),
 				_Utils_Tuple2(
 				_Utils_Tuple2(7, rank),
-				{b: color, e: 2})
+				{b: color, c: 2})
 			]);
 	});
 var $elm$core$List$append = F2(
@@ -5336,7 +5336,7 @@ var $author$project$Chess$Main$pawns = F2(
 			function (file) {
 				return _Utils_Tuple2(
 					_Utils_Tuple2(file, rank),
-					{b: color, e: 5});
+					{b: color, c: 5});
 			},
 			A2($elm$core$List$range, 0, 7));
 	});
@@ -5351,13 +5351,13 @@ var $author$project$Chess$Main$initialBoard = $elm$core$Dict$fromList(
 			])));
 var $author$project$Chess$Main$initialPosition = {
 	f: $author$project$Chess$Main$initialBoard,
-	Z: {au: true, av: true, aE: true, aF: true},
-	aM: $elm$core$Maybe$Nothing,
+	Z: {au: true, av: true, aF: true, aG: true},
+	ay: $elm$core$Maybe$Nothing,
 	F: 0
 };
 var $author$project$Chess$Main$initialModel = F2(
 	function (viewportWidth, viewportHeight) {
-		return {J: $elm$core$Maybe$Nothing, az: _List_Nil, v: 0, V: 0, o: $author$project$Chess$Main$initialPosition, O: $elm$core$Maybe$Nothing, ag: viewportHeight, ah: viewportWidth};
+		return {K: $elm$core$Maybe$Nothing, aA: _List_Nil, q: 0, aO: $elm$core$Maybe$Nothing, V: 0, j: $author$project$Chess$Main$initialPosition, I: $elm$core$Maybe$Nothing, ag: viewportHeight, ah: viewportWidth};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -5378,7 +5378,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {ch: pids, cw: subs};
+		return {co: pids, cD: subs};
 	});
 var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
 	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
@@ -5487,7 +5487,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {bQ: event, b2: key};
+		return {bX: event, b9: key};
 	});
 var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$browser$Browser$Events$spawn = F3(
@@ -5562,7 +5562,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.ch,
+			state.co,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -5608,8 +5608,8 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.b2;
-		var event = _v0.bQ;
+		var key = _v0.b9;
+		var event = _v0.bX;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -5618,7 +5618,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.cw);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.cD);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -5845,7 +5845,7 @@ var $author$project$Chess$Main$attacksSquare = F4(
 		var targetRank = _v1.b;
 		var dr = targetRank - rank;
 		var df = targetFile - file;
-		var _v2 = piece.e;
+		var _v2 = piece.c;
 		switch (_v2) {
 			case 5:
 				var dir = (!piece.b) ? 1 : (-1);
@@ -5906,7 +5906,7 @@ var $author$project$Chess$Main$opponent = function (color) {
 };
 var $author$project$Chess$Main$canCastleKingSide = F2(
 	function (position, color) {
-		var rights = (!color) ? position.Z.aE : position.Z.au;
+		var rights = (!color) ? position.Z.aF : position.Z.au;
 		var rank = $author$project$Chess$Main$homeRank(color);
 		var rookSquare = _Utils_Tuple2(7, rank);
 		var safeSquares = _List_fromArray(
@@ -5922,7 +5922,7 @@ var $author$project$Chess$Main$canCastleKingSide = F2(
 		return rights && (_Utils_eq(
 			A2($elm$core$Dict$get, rookSquare, position.f),
 			$elm$core$Maybe$Just(
-				{b: color, e: 2})) && (A2(
+				{b: color, c: 2})) && (A2(
 			$elm$core$List$all,
 			$author$project$Chess$Main$isEmpty(position.f),
 			betweenSquares) && A2(
@@ -5938,7 +5938,7 @@ var $author$project$Chess$Main$canCastleKingSide = F2(
 	});
 var $author$project$Chess$Main$canCastleQueenSide = F2(
 	function (position, color) {
-		var rights = (!color) ? position.Z.aF : position.Z.av;
+		var rights = (!color) ? position.Z.aG : position.Z.av;
 		var rank = $author$project$Chess$Main$homeRank(color);
 		var rookSquare = _Utils_Tuple2(0, rank);
 		var safeSquares = _List_fromArray(
@@ -5955,7 +5955,7 @@ var $author$project$Chess$Main$canCastleQueenSide = F2(
 		return rights && (_Utils_eq(
 			A2($elm$core$Dict$get, rookSquare, position.f),
 			$elm$core$Maybe$Just(
-				{b: color, e: 2})) && (A2(
+				{b: color, c: 2})) && (A2(
 			$elm$core$List$all,
 			$author$project$Chess$Main$isEmpty(position.f),
 			betweenSquares) && A2(
@@ -5988,7 +5988,7 @@ var $author$project$Chess$Main$findKingSquare = F2(
 					$elm$core$List$filter,
 					function (_v0) {
 						var piece = _v0.b;
-						return _Utils_eq(piece.b, color) && (!piece.e);
+						return _Utils_eq(piece.b, color) && (!piece.c);
 					},
 					$elm$core$Dict$toList(board))));
 	});
@@ -6013,7 +6013,7 @@ var $author$project$Chess$Main$castleTargets = F2(
 		var kingPresent = _Utils_eq(
 			A2($elm$core$Dict$get, kingStart, position.f),
 			$elm$core$Maybe$Just(
-				{b: color, e: 0}));
+				{b: color, c: 0}));
 		return ((!kingPresent) || A2($author$project$Chess$Main$isInCheck, position, color)) ? _List_Nil : _Utils_ap(
 			A2($author$project$Chess$Main$canCastleKingSide, position, color) ? _List_fromArray(
 				[
@@ -6111,7 +6111,7 @@ var $author$project$Chess$Main$pawnMoves = F3(
 			$elm$core$List$filter,
 			function (sq) {
 				return A3($author$project$Chess$Main$isEnemyPiece, color, position.f, sq) || _Utils_eq(
-					position.aM,
+					position.ay,
 					$elm$core$Maybe$Just(sq));
 			},
 			A2(
@@ -6155,7 +6155,7 @@ var $author$project$Chess$Main$slidingMoves = F4(
 	});
 var $author$project$Chess$Main$pseudoLegalMoves = F3(
 	function (position, from, piece) {
-		var _v0 = piece.e;
+		var _v0 = piece.c;
 		switch (_v0) {
 			case 5:
 				return A3($author$project$Chess$Main$pawnMoves, position, from, piece.b);
@@ -6587,7 +6587,7 @@ var $author$project$Chess$Main$moveCastlingRook = F3(
 			_Utils_Tuple2(6, rank)) ? A3(
 			$elm$core$Dict$insert,
 			_Utils_Tuple2(5, rank),
-			{b: color, e: 2},
+			{b: color, c: 2},
 			A2(
 				$elm$core$Dict$remove,
 				_Utils_Tuple2(7, rank),
@@ -6596,7 +6596,7 @@ var $author$project$Chess$Main$moveCastlingRook = F3(
 			_Utils_Tuple2(2, rank)) ? A3(
 			$elm$core$Dict$insert,
 			_Utils_Tuple2(3, rank),
-			{b: color, e: 2},
+			{b: color, c: 2},
 			A2(
 				$elm$core$Dict$remove,
 				_Utils_Tuple2(0, rank),
@@ -6609,7 +6609,7 @@ var $author$project$Chess$Main$reachesPromotionRank = F2(
 var $author$project$Chess$Main$updateCastlingRights = F6(
 	function (rights, from, _v0, piece, capturedSquare, capturedPiece) {
 		var afterMove = function () {
-			var _v6 = _Utils_Tuple3(piece.b, piece.e, from);
+			var _v6 = _Utils_Tuple3(piece.b, piece.c, from);
 			_v6$6:
 			while (true) {
 				if (!_v6.a) {
@@ -6619,7 +6619,7 @@ var $author$project$Chess$Main$updateCastlingRights = F6(
 							var _v8 = _v6.b;
 							return _Utils_update(
 								rights,
-								{aE: false, aF: false});
+								{aF: false, aG: false});
 						case 2:
 							if (!_v6.c.b) {
 								switch (_v6.c.a) {
@@ -6629,14 +6629,14 @@ var $author$project$Chess$Main$updateCastlingRights = F6(
 										var _v13 = _v6.c;
 										return _Utils_update(
 											rights,
-											{aF: false});
+											{aG: false});
 									case 7:
 										var _v14 = _v6.a;
 										var _v15 = _v6.b;
 										var _v16 = _v6.c;
 										return _Utils_update(
 											rights,
-											{aE: false});
+											{aF: false});
 									default:
 										break _v6$6;
 								}
@@ -6694,13 +6694,13 @@ var $author$project$Chess$Main$updateCastlingRights = F6(
 							case 0:
 								var _v2 = _v1.a.a;
 								var captured = _v1.b.a;
-								return ((!captured.b) && (captured.e === 2)) ? _Utils_update(
+								return ((!captured.b) && (captured.c === 2)) ? _Utils_update(
 									afterMove,
-									{aF: false}) : afterMove;
+									{aG: false}) : afterMove;
 							case 7:
 								var _v4 = _v1.a.a;
 								var captured = _v1.b.a;
-								return ((captured.b === 1) && (captured.e === 2)) ? _Utils_update(
+								return ((captured.b === 1) && (captured.c === 2)) ? _Utils_update(
 									afterMove,
 									{av: false}) : afterMove;
 							default:
@@ -6711,13 +6711,13 @@ var $author$project$Chess$Main$updateCastlingRights = F6(
 							case 0:
 								var _v3 = _v1.a.a;
 								var captured = _v1.b.a;
-								return ((!captured.b) && (captured.e === 2)) ? _Utils_update(
+								return ((!captured.b) && (captured.c === 2)) ? _Utils_update(
 									afterMove,
-									{aE: false}) : afterMove;
+									{aF: false}) : afterMove;
 							case 7:
 								var _v5 = _v1.a.a;
 								var captured = _v1.b.a;
-								return ((captured.b === 1) && (captured.e === 2)) ? _Utils_update(
+								return ((captured.b === 1) && (captured.c === 2)) ? _Utils_update(
 									afterMove,
 									{au: false}) : afterMove;
 							default:
@@ -6734,14 +6734,14 @@ var $author$project$Chess$Main$updateCastlingRights = F6(
 	});
 var $author$project$Chess$Main$applyMove = F4(
 	function (position, from, to, piece) {
-		var movedPiece = ((piece.e === 5) && A2($author$project$Chess$Main$reachesPromotionRank, piece.b, to.b)) ? {b: piece.b, e: 1} : piece;
-		var isCastleMove = (!piece.e) && ($elm$core$Basics$abs(to.a - from.a) === 2);
-		var enPassantTarget = ((piece.e === 5) && ($elm$core$Basics$abs(to.b - from.b) === 2)) ? $elm$core$Maybe$Just(
+		var movedPiece = ((piece.c === 5) && A2($author$project$Chess$Main$reachesPromotionRank, piece.b, to.b)) ? {b: piece.b, c: 1} : piece;
+		var isCastleMove = (!piece.c) && ($elm$core$Basics$abs(to.a - from.a) === 2);
+		var enPassantTarget = ((piece.c === 5) && ($elm$core$Basics$abs(to.b - from.b) === 2)) ? $elm$core$Maybe$Just(
 			_Utils_Tuple2(from.a, ((from.b + to.b) / 2) | 0)) : $elm$core$Maybe$Nothing;
 		var board0 = position.f;
 		var board1 = A2($elm$core$Dict$remove, from, board0);
-		var isEnPassantCapture = (piece.e === 5) && ((!_Utils_eq(from.a, to.a)) && (A2($author$project$Chess$Main$isEmpty, board0, to) && _Utils_eq(
-			position.aM,
+		var isEnPassantCapture = (piece.c === 5) && ((!_Utils_eq(from.a, to.a)) && (A2($author$project$Chess$Main$isEmpty, board0, to) && _Utils_eq(
+			position.ay,
 			$elm$core$Maybe$Just(to))));
 		var capturedSquare = isEnPassantCapture ? $elm$core$Maybe$Just(
 			_Utils_Tuple2(to.a, from.b)) : $elm$core$Maybe$Just(to);
@@ -6765,7 +6765,7 @@ var $author$project$Chess$Main$applyMove = F4(
 		return {
 			f: board4,
 			Z: castlingRights,
-			aM: enPassantTarget,
+			ay: enPassantTarget,
 			F: $author$project$Chess$Main$opponent(piece.b)
 		};
 	});
@@ -6837,19 +6837,48 @@ var $author$project$Chess$Main$gameStatus = function (position) {
 	var inCheck = A2($author$project$Chess$Main$isInCheck, position, position.F);
 	return $elm$core$List$isEmpty(legalMoves) ? (inCheck ? 2 : 3) : (inCheck ? 1 : 0);
 };
+var $author$project$Chess$Main$buildMoveSummary = F4(
+	function (previousPosition, from, to, nextPosition) {
+		return A2(
+			$elm$core$Maybe$map,
+			function (piece) {
+				var wasEnPassant = (piece.c === 5) && ((!_Utils_eq(from.a, to.a)) && (A2($author$project$Chess$Main$isEmpty, previousPosition.f, to) && _Utils_eq(
+					previousPosition.ay,
+					$elm$core$Maybe$Just(to))));
+				var promotionTo = ((piece.c === 5) && A2($author$project$Chess$Main$reachesPromotionRank, piece.b, to.b)) ? $elm$core$Maybe$Just(1) : $elm$core$Maybe$Nothing;
+				var capturedSquare = wasEnPassant ? _Utils_Tuple2(to.a, from.b) : to;
+				var capturedKind = A2(
+					$elm$core$Maybe$map,
+					function ($) {
+						return $.c;
+					},
+					A2($elm$core$Dict$get, capturedSquare, previousPosition.f));
+				return {
+					bi: capturedKind,
+					b: piece.b,
+					bk: from,
+					c: piece.c,
+					bw: promotionTo,
+					bA: $author$project$Chess$Main$gameStatus(nextPosition),
+					bE: to,
+					bF: wasEnPassant
+				};
+			},
+			A2($elm$core$Dict$get, from, previousPosition.f));
+	});
 var $elm$core$Process$sleep = _Process_sleep;
 var $author$project$Chess$Main$handleSquareClick = F2(
 	function (square, model) {
-		var status = $author$project$Chess$Main$gameStatus(model.o);
+		var status = $author$project$Chess$Main$gameStatus(model.j);
 		var gameOver = (status === 2) || (status === 3);
-		var _v0 = model.O;
+		var _v0 = model.I;
 		if (_v0.$ === 1) {
-			return gameOver ? _Utils_Tuple2(model, $elm$core$Platform$Cmd$none) : (A3($author$project$Chess$Main$isOwnPiece, model.o.F, model.o.f, square) ? _Utils_Tuple2(
+			return gameOver ? _Utils_Tuple2(model, $elm$core$Platform$Cmd$none) : (A3($author$project$Chess$Main$isOwnPiece, model.j.F, model.j.f, square) ? _Utils_Tuple2(
 				_Utils_update(
 					model,
 					{
-						J: $elm$core$Maybe$Nothing,
-						O: $elm$core$Maybe$Just(square)
+						K: $elm$core$Maybe$Nothing,
+						I: $elm$core$Maybe$Just(square)
 					}),
 				$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none));
 		} else {
@@ -6858,30 +6887,32 @@ var $author$project$Chess$Main$handleSquareClick = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{J: $elm$core$Maybe$Nothing, O: $elm$core$Maybe$Nothing}),
+						{K: $elm$core$Maybe$Nothing, I: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			} else {
-				if (A3($author$project$Chess$Main$isOwnPiece, model.o.F, model.o.f, square)) {
+				if (A3($author$project$Chess$Main$isOwnPiece, model.j.F, model.j.f, square)) {
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
 							{
-								J: $elm$core$Maybe$Nothing,
-								O: $elm$core$Maybe$Just(square)
+								K: $elm$core$Maybe$Nothing,
+								I: $elm$core$Maybe$Just(square)
 							}),
 						$elm$core$Platform$Cmd$none);
 				} else {
-					var _v1 = A3($author$project$Chess$Main$tryMove, model.o, from, square);
+					var _v1 = A3($author$project$Chess$Main$tryMove, model.j, from, square);
 					if (!_v1.$) {
 						var newPosition = _v1.a;
+						var moveSummary = A4($author$project$Chess$Main$buildMoveSummary, model.j, from, square, newPosition);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
 								{
-									J: $elm$core$Maybe$Nothing,
-									az: A2($elm$core$List$cons, model.o, model.az),
-									o: newPosition,
-									O: $elm$core$Maybe$Nothing
+									K: $elm$core$Maybe$Nothing,
+									aA: A2($elm$core$List$cons, model.j, model.aA),
+									aO: moveSummary,
+									j: newPosition,
+									I: $elm$core$Maybe$Nothing
 								}),
 							$elm$core$Platform$Cmd$none);
 					} else {
@@ -6889,8 +6920,8 @@ var $author$project$Chess$Main$handleSquareClick = F2(
 							_Utils_update(
 								model,
 								{
-									J: $elm$core$Maybe$Just(square),
-									O: $elm$core$Maybe$Nothing
+									K: $elm$core$Maybe$Just(square),
+									I: $elm$core$Maybe$Nothing
 								}),
 							A2(
 								$elm$core$Task$perform,
@@ -6929,17 +6960,17 @@ var $author$project$Chess$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						baseModel,
-						{v: model.v, V: model.V}),
+						{q: model.q, V: model.V}),
 					$elm$core$Platform$Cmd$none);
 			case 3:
-				var _v2 = model.az;
+				var _v2 = model.aA;
 				if (_v2.b) {
 					var previous = _v2.a;
 					var rest = _v2.b;
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{J: $elm$core$Maybe$Nothing, az: rest, o: previous, O: $elm$core$Maybe$Nothing}),
+							{K: $elm$core$Maybe$Nothing, aA: rest, aO: $elm$core$Maybe$Nothing, j: previous, I: $elm$core$Maybe$Nothing}),
 						$elm$core$Platform$Cmd$none);
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -6949,13 +6980,13 @@ var $author$project$Chess$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{v: lang}),
+						{q: lang}),
 					$elm$core$Platform$Cmd$none);
 			case 5:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{J: $elm$core$Maybe$Nothing}),
+						{K: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var width = msg.a;
@@ -7099,7 +7130,7 @@ var $author$project$Chess$Main$label = F2(
 					case 0:
 						var _v5 = _v0.a;
 						var _v6 = _v0.b;
-						return 'Tourner echiquier';
+						return 'Tourner l\'échiquier';
 					case 1:
 						var _v11 = _v0.a;
 						var _v12 = _v0.b;
@@ -7111,7 +7142,7 @@ var $author$project$Chess$Main$label = F2(
 					case 3:
 						var _v23 = _v0.a;
 						var _v24 = _v0.b;
-						return 'ECHEC';
+						return 'ÉCHEC';
 					case 4:
 						var _v29 = _v0.a;
 						var _v30 = _v0.b;
@@ -7152,21 +7183,21 @@ var $author$project$Chess$Main$viewBanner = F2(
 				case 0:
 					return A2(
 						$author$project$Chess$Main$label,
-						model.v,
-						$author$project$Chess$Main$LabelTurn(model.o.F));
+						model.q,
+						$author$project$Chess$Main$LabelTurn(model.j.F));
 				case 1:
-					return A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelCheck) + (' - ' + A2(
+					return A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelCheck) + (' - ' + A2(
 						$author$project$Chess$Main$label,
-						model.v,
-						$author$project$Chess$Main$LabelTurn(model.o.F)));
+						model.q,
+						$author$project$Chess$Main$LabelTurn(model.j.F)));
 				case 2:
-					return A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelMate) + (' - ' + A2(
+					return A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelMate) + (' - ' + A2(
 						$author$project$Chess$Main$label,
-						model.v,
+						model.q,
 						$author$project$Chess$Main$LabelWinner(
-							$author$project$Chess$Main$opponent(model.o.F))));
+							$author$project$Chess$Main$opponent(model.j.F))));
 				default:
-					return A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelStalemate);
+					return A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelStalemate);
 			}
 		}();
 		return A2(
@@ -7335,7 +7366,7 @@ var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
 var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
 var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
 var $author$project$Chess$Main$pieceGlyph = function (piece) {
-	var _v0 = _Utils_Tuple2(piece.b, piece.e);
+	var _v0 = _Utils_Tuple2(piece.b, piece.c);
 	if (!_v0.a) {
 		switch (_v0.b) {
 			case 0:
@@ -7429,7 +7460,7 @@ var $author$project$Chess$Main$viewSquare = F6(
 		var x = rim + (displayCol * cellSize);
 		var boardSquare = A3($author$project$Chess$Main$displayToBoard, model.V, displayCol, displayRow);
 		var pieceNode = function () {
-			var _v1 = A2($elm$core$Dict$get, boardSquare, model.o.f);
+			var _v1 = A2($elm$core$Dict$get, boardSquare, model.j.f);
 			if (_v1.$ === 1) {
 				return _List_Nil;
 			} else {
@@ -7445,9 +7476,9 @@ var $author$project$Chess$Main$viewSquare = F6(
 		var boardRank = _v0.b;
 		var baseColor = (!A2($elm$core$Basics$modBy, 2, boardFile + boardRank)) ? '#f0d9b5' : '#b58863';
 		var colorWithState = _Utils_eq(
-			model.O,
+			model.I,
 			$elm$core$Maybe$Just(boardSquare)) ? '#88cc66' : (_Utils_eq(
-			model.J,
+			model.K,
 			$elm$core$Maybe$Just(boardSquare)) ? '#f8696b' : (_Utils_eq(
 			inCheckKingSquare,
 			$elm$core$Maybe$Just(boardSquare)) ? '#ffd866' : baseColor));
@@ -7480,7 +7511,7 @@ var $author$project$Chess$Main$viewSquare = F6(
 var $author$project$Chess$Main$viewBoard = F3(
 	function (model, status, boardPixels) {
 		var rim = 24;
-		var inCheckKingSquare = ((status === 1) || (status === 2)) ? A2($author$project$Chess$Main$findKingSquare, model.o.f, model.o.F) : $elm$core$Maybe$Nothing;
+		var inCheckKingSquare = ((status === 1) || (status === 2)) ? A2($author$project$Chess$Main$findKingSquare, model.j.f, model.j.F) : $elm$core$Maybe$Nothing;
 		var cellSize = 64;
 		var squareElements = A2(
 			$elm$core$List$concatMap,
@@ -7571,7 +7602,7 @@ var $author$project$Chess$Main$langCode = function (lang) {
 };
 var $author$project$Chess$Main$langButton = F2(
 	function (model, lang) {
-		var isSelected = _Utils_eq(model.v, lang);
+		var isSelected = _Utils_eq(model.q, lang);
 		return A2(
 			$elm$html$Html$button,
 			_List_fromArray(
@@ -7612,23 +7643,346 @@ var $author$project$Chess$Main$viewControls = function (model) {
 			[
 				A2(
 				$author$project$Chess$Main$actionButton,
-				A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelSwap),
+				A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelSwap),
 				$author$project$Chess$Main$SwapOrientation),
 				A2(
 				$author$project$Chess$Main$actionButton,
-				A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelUndo),
+				A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelUndo),
 				$author$project$Chess$Main$Undo),
 				A2(
 				$author$project$Chess$Main$actionButton,
-				A2($author$project$Chess$Main$label, model.v, $author$project$Chess$Main$LabelReset),
+				A2($author$project$Chess$Main$label, model.q, $author$project$Chess$Main$LabelReset),
 				$author$project$Chess$Main$Reset),
 				A2($author$project$Chess$Main$langButton, model, 0),
 				A2($author$project$Chess$Main$langButton, model, 1),
 				A2($author$project$Chess$Main$langButton, model, 2)
 			]));
 };
+var $author$project$Chess$Main$pieceName = F2(
+	function (lang, kind) {
+		var _v0 = _Utils_Tuple2(lang, kind);
+		switch (_v0.a) {
+			case 0:
+				switch (_v0.b) {
+					case 0:
+						var _v1 = _v0.a;
+						var _v2 = _v0.b;
+						return 'king';
+					case 1:
+						var _v3 = _v0.a;
+						var _v4 = _v0.b;
+						return 'queen';
+					case 2:
+						var _v5 = _v0.a;
+						var _v6 = _v0.b;
+						return 'rook';
+					case 3:
+						var _v7 = _v0.a;
+						var _v8 = _v0.b;
+						return 'bishop';
+					case 4:
+						var _v9 = _v0.a;
+						var _v10 = _v0.b;
+						return 'knight';
+					default:
+						var _v11 = _v0.a;
+						var _v12 = _v0.b;
+						return 'pawn';
+				}
+			case 1:
+				switch (_v0.b) {
+					case 0:
+						var _v13 = _v0.a;
+						var _v14 = _v0.b;
+						return 'König';
+					case 1:
+						var _v15 = _v0.a;
+						var _v16 = _v0.b;
+						return 'Dame';
+					case 2:
+						var _v17 = _v0.a;
+						var _v18 = _v0.b;
+						return 'Turm';
+					case 3:
+						var _v19 = _v0.a;
+						var _v20 = _v0.b;
+						return 'Läufer';
+					case 4:
+						var _v21 = _v0.a;
+						var _v22 = _v0.b;
+						return 'Springer';
+					default:
+						var _v23 = _v0.a;
+						var _v24 = _v0.b;
+						return 'Bauer';
+				}
+			default:
+				switch (_v0.b) {
+					case 0:
+						var _v25 = _v0.a;
+						var _v26 = _v0.b;
+						return 'roi';
+					case 1:
+						var _v27 = _v0.a;
+						var _v28 = _v0.b;
+						return 'reine';
+					case 2:
+						var _v29 = _v0.a;
+						var _v30 = _v0.b;
+						return 'tour';
+					case 3:
+						var _v31 = _v0.a;
+						var _v32 = _v0.b;
+						return 'fou';
+					case 4:
+						var _v33 = _v0.a;
+						var _v34 = _v0.b;
+						return 'cavalier';
+					default:
+						var _v35 = _v0.a;
+						var _v36 = _v0.b;
+						return 'pion';
+				}
+		}
+	});
+var $author$project$Chess$Main$capturePhrase = F2(
+	function (lang, capturedKind) {
+		switch (lang) {
+			case 0:
+				return 'captures ' + A2($author$project$Chess$Main$pieceName, 0, capturedKind);
+			case 1:
+				return 'schlaegt ' + A2($author$project$Chess$Main$pieceName, 1, capturedKind);
+			default:
+				return 'capture ' + A2($author$project$Chess$Main$pieceName, 2, capturedKind);
+		}
+	});
+var $author$project$Chess$Main$checkOutcomePhrase = function (lang) {
+	switch (lang) {
+		case 0:
+			return 'check';
+		case 1:
+			return 'Schach';
+		default:
+			return 'échec';
+	}
+};
+var $author$project$Chess$Main$enPassantPhrase = function (lang) {
+	switch (lang) {
+		case 0:
+			return 'captures pawn en passant';
+		case 1:
+			return 'schlaegt Bauer en passant';
+		default:
+			return 'capture pion en passant';
+	}
+};
+var $author$project$Chess$Main$mateOutcomePhrase = function (lang) {
+	switch (lang) {
+		case 0:
+			return 'mate';
+		case 1:
+			return 'Matt';
+		default:
+			return 'mat';
+	}
+};
+var $author$project$Chess$Main$promotionPhrase = F2(
+	function (lang, promotedTo) {
+		switch (lang) {
+			case 0:
+				return 'promotes to ' + A2($author$project$Chess$Main$pieceName, 0, promotedTo);
+			case 1:
+				return 'wird zu ' + A2($author$project$Chess$Main$pieceName, 1, promotedTo);
+			default:
+				return 'promotion en ' + A2($author$project$Chess$Main$pieceName, 2, promotedTo);
+		}
+	});
+var $elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
+var $author$project$Chess$Main$stalemateOutcomePhrase = function (lang) {
+	switch (lang) {
+		case 0:
+			return 'stalemate';
+		case 1:
+			return 'Patt';
+		default:
+			return 'pat';
+	}
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (!maybe.$) {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$Chess$Main$moveDetailPhrases = F2(
+	function (lang, moveInfo) {
+		var statusDetails = function () {
+			var _v0 = moveInfo.bA;
+			switch (_v0) {
+				case 1:
+					return _List_fromArray(
+						[
+							$author$project$Chess$Main$checkOutcomePhrase(lang)
+						]);
+				case 2:
+					return _List_fromArray(
+						[
+							$author$project$Chess$Main$mateOutcomePhrase(lang)
+						]);
+				case 3:
+					return _List_fromArray(
+						[
+							$author$project$Chess$Main$stalemateOutcomePhrase(lang)
+						]);
+				default:
+					return _List_Nil;
+			}
+		}();
+		var promotionDetails = A2(
+			$elm$core$Maybe$withDefault,
+			_List_Nil,
+			A2(
+				$elm$core$Maybe$map,
+				$elm$core$List$singleton,
+				A2(
+					$elm$core$Maybe$map,
+					function (kind) {
+						return A2($author$project$Chess$Main$promotionPhrase, lang, kind);
+					},
+					moveInfo.bw)));
+		var captureDetails = moveInfo.bF ? _List_fromArray(
+			[
+				$author$project$Chess$Main$enPassantPhrase(lang)
+			]) : A2(
+			$elm$core$Maybe$withDefault,
+			_List_Nil,
+			A2(
+				$elm$core$Maybe$map,
+				$elm$core$List$singleton,
+				A2(
+					$elm$core$Maybe$map,
+					function (capturedKind) {
+						return A2($author$project$Chess$Main$capturePhrase, lang, capturedKind);
+					},
+					moveInfo.bi)));
+		return _Utils_ap(
+			captureDetails,
+			_Utils_ap(promotionDetails, statusDetails));
+	});
+var $author$project$Chess$Main$colorName = F2(
+	function (lang, color) {
+		var _v0 = _Utils_Tuple2(lang, color);
+		if (!_v0.b) {
+			switch (_v0.a) {
+				case 0:
+					var _v1 = _v0.a;
+					var _v2 = _v0.b;
+					return 'White';
+				case 1:
+					var _v5 = _v0.a;
+					var _v6 = _v0.b;
+					return 'Weiss';
+				default:
+					var _v9 = _v0.a;
+					var _v10 = _v0.b;
+					return 'blanc';
+			}
+		} else {
+			switch (_v0.a) {
+				case 0:
+					var _v3 = _v0.a;
+					var _v4 = _v0.b;
+					return 'Black';
+				case 1:
+					var _v7 = _v0.a;
+					var _v8 = _v0.b;
+					return 'Schwarz';
+				default:
+					var _v11 = _v0.a;
+					var _v12 = _v0.b;
+					return 'noir';
+			}
+		}
+	});
+var $author$project$Chess$Main$squareToNotation = function (_v0) {
+	var file = _v0.a;
+	var rank = _v0.b;
+	return _Utils_ap(
+		$elm$core$String$fromChar(
+			$elm$core$Char$fromCode(
+				$elm$core$Char$toCode('a') + file)),
+		$elm$core$String$fromInt(rank + 1));
+};
+var $author$project$Chess$Main$moveSentence = F5(
+	function (lang, color, kind, from, maybeTo) {
+		var toText = A2(
+			$elm$core$Maybe$withDefault,
+			'...',
+			A2($elm$core$Maybe$map, $author$project$Chess$Main$squareToNotation, maybeTo));
+		var fromText = $author$project$Chess$Main$squareToNotation(from);
+		switch (lang) {
+			case 0:
+				return A2($author$project$Chess$Main$colorName, 0, color) + (' ' + (A2($author$project$Chess$Main$pieceName, 0, kind) + (' ' + (fromText + (' to ' + toText)))));
+			case 1:
+				return A2($author$project$Chess$Main$colorName, 1, color) + (' ' + (A2($author$project$Chess$Main$pieceName, 1, kind) + (' ' + (fromText + (' nach ' + toText)))));
+			default:
+				return A2($author$project$Chess$Main$pieceName, 2, kind) + (' ' + (A2($author$project$Chess$Main$colorName, 2, color) + (' ' + (fromText + (' vers ' + toText)))));
+		}
+	});
+var $author$project$Chess$Main$completedMoveSentence = F2(
+	function (lang, moveInfo) {
+		var details = A2($author$project$Chess$Main$moveDetailPhrases, lang, moveInfo);
+		var base = A5(
+			$author$project$Chess$Main$moveSentence,
+			lang,
+			moveInfo.b,
+			moveInfo.c,
+			moveInfo.bk,
+			$elm$core$Maybe$Just(moveInfo.bE));
+		return $elm$core$List$isEmpty(details) ? base : (base + (' (' + (A2($elm$core$String$join, ', ', details) + ')')));
+	});
+var $author$project$Chess$Main$viewMoveBanner = function (model) {
+	var moveText = function () {
+		var _v0 = model.I;
+		if (!_v0.$) {
+			var from = _v0.a;
+			return A2(
+				$elm$core$Maybe$map,
+				function (piece) {
+					return A5($author$project$Chess$Main$moveSentence, model.q, piece.b, piece.c, from, $elm$core$Maybe$Nothing);
+				},
+				A2($elm$core$Dict$get, from, model.j.f));
+		} else {
+			return A2(
+				$elm$core$Maybe$map,
+				$author$project$Chess$Main$completedMoveSentence(model.q),
+				model.aO);
+		}
+	}();
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'font-size', '18px'),
+				A2($elm$html$Html$Attributes$style, 'font-weight', '600'),
+				A2($elm$html$Html$Attributes$style, 'min-height', '26px'),
+				A2($elm$html$Html$Attributes$style, 'margin-bottom', '8px'),
+				A2($elm$html$Html$Attributes$style, 'text-align', 'center')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(
+				A2($elm$core$Maybe$withDefault, '', moveText))
+			]));
+};
 var $author$project$Chess$Main$view = function (model) {
-	var status = $author$project$Chess$Main$gameStatus(model.o);
+	var status = $author$project$Chess$Main$gameStatus(model.j);
 	var boardPixels = $author$project$Chess$Main$boardPixelSize(model);
 	return A2(
 		$elm$html$Html$div,
@@ -7662,12 +8016,13 @@ var $author$project$Chess$Main$view = function (model) {
 					[
 						$author$project$Chess$Main$viewControls(model),
 						A2($author$project$Chess$Main$viewBanner, model, status),
+						$author$project$Chess$Main$viewMoveBanner(model),
 						A3($author$project$Chess$Main$viewBoard, model, status, boardPixels)
 					]))
 			]));
 };
 var $author$project$Chess$Main$main = $elm$browser$Browser$element(
-	{dI: $author$project$Chess$Main$init, ez: $author$project$Chess$Main$subscriptions, eW: $author$project$Chess$Main$update, eX: $author$project$Chess$Main$view});
+	{dP: $author$project$Chess$Main$init, eG: $author$project$Chess$Main$subscriptions, e1: $author$project$Chess$Main$update, e2: $author$project$Chess$Main$view});
 _Platform_export({'Chess':{'Main':{'init':$author$project$Chess$Main$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
