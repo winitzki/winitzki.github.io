@@ -5335,7 +5335,7 @@ var $author$project$Checkers$Main$initialPiecesFor = function (player) {
 						_Utils_Tuple2(file, rank)) ? $elm$core$Maybe$Just(
 						_Utils_Tuple2(
 							_Utils_Tuple2(file, rank),
-							{Z: 0, C: player})) : $elm$core$Maybe$Nothing;
+							{Z: 0, B: player})) : $elm$core$Maybe$Nothing;
 				},
 				A2($elm$core$List$range, 0, 7));
 		},
@@ -5345,7 +5345,7 @@ var $author$project$Checkers$Main$initialBoard = $elm$core$Dict$fromList(
 	_Utils_ap(
 		$author$project$Checkers$Main$initialPiecesFor(0),
 		$author$project$Checkers$Main$initialPiecesFor(1)));
-var $author$project$Checkers$Main$initialModel = {t: $author$project$Checkers$Main$initialBoard, Y: $elm$core$Maybe$Nothing, E: $elm$core$Maybe$Nothing, G: 1, al: 0, ad: $elm$core$Maybe$Nothing, y: 0};
+var $author$project$Checkers$Main$initialModel = {u: $author$project$Checkers$Main$initialBoard, Y: $elm$core$Maybe$Nothing, I: $elm$core$Maybe$Nothing, F: 1, al: 0, ad: $elm$core$Maybe$Nothing, C: 0};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5731,7 +5731,7 @@ var $elm$core$Tuple$second = function (_v0) {
 };
 var $author$project$Checkers$Main$boardAfterAction = F5(
 	function (board, from, to, piece, isCaptureMove) {
-		var promotedPiece = ((!piece.Z) && A2($author$project$Checkers$Main$reachesPromotionRow, piece.C, to.b)) ? _Utils_update(
+		var promotedPiece = ((!piece.Z) && A2($author$project$Checkers$Main$reachesPromotionRow, piece.B, to.b)) ? _Utils_update(
 			piece,
 			{Z: 1}) : piece;
 		var boardWithoutFrom = A2($elm$core$Dict$remove, from, board);
@@ -5787,7 +5787,7 @@ var $author$project$Checkers$Main$movementDirections = function (piece) {
 				_Utils_Tuple2(1, 1)
 			]);
 	} else {
-		return (!piece.C) ? _List_fromArray(
+		return (!piece.B) ? _List_fromArray(
 			[
 				_Utils_Tuple2(-1, 1),
 				_Utils_Tuple2(1, 1)
@@ -5823,7 +5823,7 @@ var $author$project$Checkers$Main$captureMovesFrom = F3(
 					if ((!_v2.a.$) && (_v2.b.$ === 1)) {
 						var middlePiece = _v2.a.a;
 						var _v3 = _v2.b;
-						return (!_Utils_eq(middlePiece.C, piece.C)) ? $elm$core$Maybe$Just(landing) : $elm$core$Maybe$Nothing;
+						return (!_Utils_eq(middlePiece.B, piece.B)) ? $elm$core$Maybe$Just(landing) : $elm$core$Maybe$Nothing;
 					} else {
 						return $elm$core$Maybe$Nothing;
 					}
@@ -5850,13 +5850,13 @@ var $author$project$Checkers$Main$otherPlayer = function (player) {
 };
 var $author$project$Checkers$Main$applyChosenMove = F3(
 	function (model, from, to) {
-		var maybePiece = A2($elm$core$Dict$get, from, model.t);
+		var maybePiece = A2($elm$core$Dict$get, from, model.u);
 		if (maybePiece.$ === 1) {
 			return model;
 		} else {
 			var piece = maybePiece.a;
 			var isCaptureMove = $elm$core$Basics$abs(to.a - from.a) === 2;
-			var boardAfterMove = A5($author$project$Checkers$Main$boardAfterAction, model.t, from, to, piece, isCaptureMove);
+			var boardAfterMove = A5($author$project$Checkers$Main$boardAfterAction, model.u, from, to, piece, isCaptureMove);
 			var pieceAtTarget = A2($elm$core$Dict$get, to, boardAfterMove);
 			var mustContinueCapture = function () {
 				if (pieceAtTarget.$ === 1) {
@@ -5870,18 +5870,18 @@ var $author$project$Checkers$Main$applyChosenMove = F3(
 			return mustContinueCapture ? _Utils_update(
 				model,
 				{
-					t: boardAfterMove,
+					u: boardAfterMove,
 					Y: $elm$core$Maybe$Nothing,
-					E: $elm$core$Maybe$Just(to),
+					I: $elm$core$Maybe$Just(to),
 					ad: $elm$core$Maybe$Just(to)
 				}) : _Utils_update(
 				model,
 				{
-					t: boardAfterMove,
+					u: boardAfterMove,
 					Y: $elm$core$Maybe$Nothing,
-					E: $elm$core$Maybe$Nothing,
+					I: $elm$core$Maybe$Nothing,
 					ad: $elm$core$Maybe$Nothing,
-					y: $author$project$Checkers$Main$otherPlayer(model.y)
+					C: $author$project$Checkers$Main$otherPlayer(model.C)
 				});
 		}
 	});
@@ -5933,7 +5933,7 @@ var $author$project$Checkers$Main$requiredCaptureStarts = F3(
 			var _v1 = A2($elm$core$Dict$get, sq, board);
 			if (!_v1.$) {
 				var piece = _v1.a;
-				return (_Utils_eq(piece.C, turn) && (!$elm$core$List$isEmpty(
+				return (_Utils_eq(piece.B, turn) && (!$elm$core$List$isEmpty(
 					A3($author$project$Checkers$Main$captureMovesFrom, board, sq, piece)))) ? _List_fromArray(
 					[sq]) : _List_Nil;
 			} else {
@@ -5952,7 +5952,7 @@ var $author$project$Checkers$Main$requiredCaptureStarts = F3(
 					$elm$core$List$filter,
 					function (_v2) {
 						var piece = _v2.b;
-						return _Utils_eq(piece.C, turn);
+						return _Utils_eq(piece.B, turn);
 					},
 					$elm$core$Dict$toList(board)));
 		}
@@ -5987,7 +5987,7 @@ var $author$project$Checkers$Main$legalDestinations = F4(
 			return _List_Nil;
 		} else {
 			var piece = _v0.a;
-			if (!_Utils_eq(piece.C, turn)) {
+			if (!_Utils_eq(piece.B, turn)) {
 				return _List_Nil;
 			} else {
 				var captureStarts = A3($author$project$Checkers$Main$requiredCaptureStarts, board, turn, forcedFrom);
@@ -6009,7 +6009,7 @@ var $author$project$Checkers$Main$legalMoveStarts = F2(
 				$elm$core$List$filter,
 				function (_v0) {
 					var piece = _v0.b;
-					return _Utils_eq(piece.C, turn);
+					return _Utils_eq(piece.B, turn);
 				},
 				$elm$core$Dict$toList(board)));
 	});
@@ -6047,7 +6047,7 @@ var $author$project$Checkers$Main$gameOutcome = F3(
 			$elm$core$List$filter,
 			function (_v0) {
 				var piece = _v0.b;
-				return _Utils_eq(piece.C, turn);
+				return _Utils_eq(piece.B, turn);
 			},
 			$elm$core$Dict$toList(board));
 		var hasAnyMove = !$elm$core$List$isEmpty(
@@ -6058,12 +6058,12 @@ var $author$project$Checkers$Main$gameOutcome = F3(
 var $elm$core$Process$sleep = _Process_sleep;
 var $author$project$Checkers$Main$handleClick = F2(
 	function (square, model) {
-		var _v0 = A3($author$project$Checkers$Main$gameOutcome, model.t, model.y, model.E);
+		var _v0 = A3($author$project$Checkers$Main$gameOutcome, model.u, model.C, model.I);
 		if (!_v0.$) {
 			return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		} else {
-			var captureStarts = A3($author$project$Checkers$Main$requiredCaptureStarts, model.t, model.y, model.E);
-			var selectableStarts = (!_Utils_eq(model.E, $elm$core$Maybe$Nothing)) ? captureStarts : ($elm$core$List$isEmpty(captureStarts) ? A2($author$project$Checkers$Main$legalMoveStarts, model.t, model.y) : captureStarts);
+			var captureStarts = A3($author$project$Checkers$Main$requiredCaptureStarts, model.u, model.C, model.I);
+			var selectableStarts = (!_Utils_eq(model.I, $elm$core$Maybe$Nothing)) ? captureStarts : ($elm$core$List$isEmpty(captureStarts) ? A2($author$project$Checkers$Main$legalMoveStarts, model.u, model.C) : captureStarts);
 			var _v1 = model.ad;
 			if (_v1.$ === 1) {
 				return A2($elm$core$List$member, square, selectableStarts) ? _Utils_Tuple2(
@@ -6076,7 +6076,7 @@ var $author$project$Checkers$Main$handleClick = F2(
 					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			} else {
 				var from = _v1.a;
-				var movesFromSelected = A4($author$project$Checkers$Main$legalDestinations, model.t, model.y, model.E, from);
+				var movesFromSelected = A4($author$project$Checkers$Main$legalDestinations, model.u, model.C, model.I, from);
 				return A2($elm$core$List$member, square, movesFromSelected) ? _Utils_Tuple2(
 					A3($author$project$Checkers$Main$applyChosenMove, model, from, square),
 					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(
@@ -6105,7 +6105,7 @@ var $author$project$Checkers$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						$author$project$Checkers$Main$initialModel,
-						{G: model.G, al: model.al}),
+						{F: model.F, al: model.al}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
 				return _Utils_Tuple2(
@@ -6127,7 +6127,7 @@ var $author$project$Checkers$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{G: lang}),
+						{F: lang}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(
@@ -6282,23 +6282,23 @@ var $author$project$Checkers$Main$tr = F2(
 	});
 var $author$project$Checkers$Main$viewBanner = function (model) {
 	var bannerText = function () {
-		var _v0 = A3($author$project$Checkers$Main$gameOutcome, model.t, model.y, model.E);
+		var _v0 = A3($author$project$Checkers$Main$gameOutcome, model.u, model.C, model.I);
 		if (!_v0.$) {
 			var winner = _v0.a;
 			return A2(
 				$author$project$Checkers$Main$tr,
-				model.G,
+				model.F,
 				$author$project$Checkers$Main$LabelWinner(winner));
 		} else {
 			var hasForcedCapture = !$elm$core$List$isEmpty(
-				A3($author$project$Checkers$Main$requiredCaptureStarts, model.t, model.y, model.E));
+				A3($author$project$Checkers$Main$requiredCaptureStarts, model.u, model.C, model.I));
 			return hasForcedCapture ? A2(
 				$author$project$Checkers$Main$tr,
-				model.G,
-				$author$project$Checkers$Main$LabelMustCapture(model.y)) : A2(
+				model.F,
+				$author$project$Checkers$Main$LabelMustCapture(model.C)) : A2(
 				$author$project$Checkers$Main$tr,
-				model.G,
-				$author$project$Checkers$Main$LabelTurn(model.y));
+				model.F,
+				$author$project$Checkers$Main$LabelTurn(model.C));
 		}
 	}();
 	return A2(
@@ -6360,7 +6360,7 @@ var $author$project$Checkers$Main$drawPiece = F5(
 		var innerR = cell * 0.24;
 		var centerY = y + ((cell / 2) | 0);
 		var centerX = x + ((cell / 2) | 0);
-		var _v0 = (!piece.C) ? _Utils_Tuple2('#fafafa', '#222222') : _Utils_Tuple2('#1a1a1a', '#f0f0f0');
+		var _v0 = (!piece.B) ? _Utils_Tuple2('#fafafa', '#222222') : _Utils_Tuple2('#1a1a1a', '#f0f0f0');
 		var fillColor = _v0.a;
 		var ringColor = _v0.b;
 		var kingMark = (piece.Z === 1) ? _List_fromArray(
@@ -6430,8 +6430,8 @@ var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var $author$project$Checkers$Main$drawSquare = F6(
-	function (model, cell, selected, legalTargets, displayCol, displayRow) {
+var $author$project$Checkers$Main$drawSquare = F5(
+	function (model, cell, selected, displayCol, displayRow) {
 		var y = displayRow * cell;
 		var x = displayCol * cell;
 		var boardSquare = A3($author$project$Checkers$Main$displayToBoard, model.al, displayCol, displayRow);
@@ -6440,14 +6440,14 @@ var $author$project$Checkers$Main$drawSquare = F6(
 			model.Y,
 			$elm$core$Maybe$Just(boardSquare)) ? '#ef5350' : (_Utils_eq(
 			selected,
-			$elm$core$Maybe$Just(boardSquare)) ? '#66bb6a' : (A2($elm$core$List$member, boardSquare, legalTargets) ? '#b7d96d' : baseColor));
+			$elm$core$Maybe$Just(boardSquare)) ? '#66bb6a' : baseColor);
 		var _v0 = boardSquare;
 		var boardFile = _v0.a;
 		var boardRank = _v0.b;
 		var maybePiece = A2(
 			$elm$core$Dict$get,
 			_Utils_Tuple2(boardFile, boardRank),
-			model.t);
+			model.u);
 		var pieceSvg = function () {
 			if (maybePiece.$ === 1) {
 				return _List_Nil;
@@ -6491,14 +6491,6 @@ var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $author$project$Checkers$Main$viewBoard = F2(
 	function (model, pixelSize) {
 		var selected = model.ad;
-		var legalTargets = function () {
-			if (selected.$ === 1) {
-				return _List_Nil;
-			} else {
-				var from = selected.a;
-				return A4($author$project$Checkers$Main$legalDestinations, model.t, model.y, model.E, from);
-			}
-		}();
 		var cell = (pixelSize / 8) | 0;
 		var squares = A2(
 			$elm$core$List$concatMap,
@@ -6506,7 +6498,7 @@ var $author$project$Checkers$Main$viewBoard = F2(
 				return A2(
 					$elm$core$List$map,
 					function (displayCol) {
-						return A6($author$project$Checkers$Main$drawSquare, model, cell, selected, legalTargets, displayCol, displayRow);
+						return A5($author$project$Checkers$Main$drawSquare, model, cell, selected, displayCol, displayRow);
 					},
 					A2($elm$core$List$range, 0, 7));
 			},
@@ -6574,7 +6566,7 @@ var $author$project$Checkers$Main$langCode = function (lang) {
 };
 var $author$project$Checkers$Main$languageButton = F2(
 	function (model, lang) {
-		var active = _Utils_eq(model.G, lang);
+		var active = _Utils_eq(model.F, lang);
 		return A2(
 			$elm$html$Html$button,
 			_List_fromArray(
@@ -6618,11 +6610,11 @@ var $author$project$Checkers$Main$viewControls = function (model) {
 			[
 				A2(
 				$author$project$Checkers$Main$actionButton,
-				A2($author$project$Checkers$Main$tr, model.G, $author$project$Checkers$Main$LabelReset),
+				A2($author$project$Checkers$Main$tr, model.F, $author$project$Checkers$Main$LabelReset),
 				$author$project$Checkers$Main$ResetGame),
 				A2(
 				$author$project$Checkers$Main$actionButton,
-				A2($author$project$Checkers$Main$tr, model.G, $author$project$Checkers$Main$LabelSwap),
+				A2($author$project$Checkers$Main$tr, model.F, $author$project$Checkers$Main$LabelSwap),
 				$author$project$Checkers$Main$SwapOrientation),
 				A2($author$project$Checkers$Main$languageButton, model, 0),
 				A2($author$project$Checkers$Main$languageButton, model, 1),
