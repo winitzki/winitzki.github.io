@@ -28,16 +28,30 @@
     <div id="app"></div>
     <script src="app.js"></script>
     <script>
-        const appNode = document.getElementById("app");
+        var appNode = document.getElementById("app");
 
-        ["selectstart", "dragstart", "dblclick"].forEach((eventName) => {
-            appNode.addEventListener(eventName, (event) => {
+        Elm.Checkers.Main.init({
+            node: appNode
+        });
+
+        ["selectstart", "dragstart", "dblclick", "contextmenu"].forEach(function (eventName) {
+            appNode.addEventListener(eventName, function (event) {
                 event.preventDefault();
             });
         });
 
-        Elm.Checkers.Main.init({
-            node: appNode
+        document.addEventListener("selectionchange", function () {
+            var selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) {
+                return;
+            }
+
+            var anchorInside = selection.anchorNode && appNode.contains(selection.anchorNode);
+            var focusInside = selection.focusNode && appNode.contains(selection.focusNode);
+
+            if (anchorInside || focusInside) {
+                selection.removeAllRanges();
+            }
         });
     </script>
 </body>
